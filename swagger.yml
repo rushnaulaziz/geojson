@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: OpenStreetMap GeoJSON API
+  version: 1.0.0
+  description: API to fetch GeoJSON features from OpenStreetMap based on a bounding box.
+servers:
+  - url: http://localhost:3000 
+paths:
+  /api/geojson:
+    get:
+      summary: Get GeoJSON features based on a bounding box.
+      parameters:
+        - in: query
+          name: bbox
+          required: true
+          description: Bounding box (min Longitude , min Latitude , max Longitude , max Latitude) to fetch GeoJSON features.
+          schema:
+            type: string
+          example: '-0.126,51.499,-0.125,51.500'
+      responses:
+        '200':
+          description: GeoJSON data representing the features within the bounding box.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: FeatureCollection
+                  features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: Feature
+                        properties:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: New York City
+                            population:
+                              type: number
+                              example: 8175133
+                        geometry:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              example: Point
+                            coordinates:
+                              type: array
+                              items:
+                                type: number
+                                example:
+                                  - -74.0060
+                                  - 40.7128
+        '400':
+          description: Bad Request. The bounding box (bbox) parameter is missing.
+        '500':
+          description: Internal Server Error. An error occurred while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An error occurred while processing the request.
