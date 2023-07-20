@@ -31,3 +31,50 @@ To start the API server, use the following command:
 npm start
 ```
 The server will be running on http://localhost:3000.
+
+## API Endpoint
+The API exposes a single endpoint to retrieve GeoJSON features based on the provided geolocation box.
+
+### GET /api/geojson
+**Request**: To request GeoJSON features, send a GET request to the /api/geojson endpoint with the geolocation box as query parameters:
+
+```bash
+ curl -X GET "http://localhost:3000/api/geojson?bbox=67.0155,24.9436,67.0733,24.9868"
+
+```
+
+**Response**: The API will respond with the GeoJSON representation of the features found within the specified bounding box.
+
+## Running Test:
+The application is unit-tested using Jest and Supertest. To run the tests, use the following command:
+
+```bash
+npm test
+```
+
+
+The test suite will be executed, and the results will be displayed in the terminal. The tests cover various scenarios, including successful requests, missing parameters, and error handling.
+
+**Note:** Ensure that the Express server is not running (npm start) while running the tests, as Jest and Supertest handle starting and stopping the server during the test execution.
+
+## Dependencies
+The project relies on the following major dependencies:
+
+- Express.js: A minimal and flexible Node.js web application framework.
+- Axios: A popular HTTP client to make requests to external APIs.
+- osmtogeojson: A library to convert OpenStreetMap XML data to GeoJSON format.
+ 
+
+## Contributing
+We welcome contributions to improve the project! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository on GitHub.
+2. Create a new branch with a descriptive name for your feature or bug fix.
+3. Make your changes and commit them with clear commit messages.
+4. Push your changes to your forked repository.
+5. Submit a pull request to the main repository.
+
+Please ensure that your code is well-tested and follows the project's coding standards.
+
+
+Thank you for taking the time to explore this project. If you have any questions or need further information, feel free to reach out or refer to the documentation within the codebase. Happy coding!
