@@ -1,6 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const osmtogeojson = require('osmtogeojson');
+const swaggerUi = require('swagger-ui-express');
+const yaml = require('js-yaml');
+const fs = require('fs');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,6 +35,13 @@ app.get('/api/geojson', async (req, res) => {
     
   }
 });
+
+// Load Swagger API documentation from YAML
+const swaggerDoc = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'));
+
+// Serve Swagger API documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
